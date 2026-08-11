@@ -1,0 +1,474 @@
+.section {
+  position: relative;
+  width: 100%;
+  min-height: 760px;
+  overflow: hidden;
+  background: #f3ecbe; /* color3 - Arena claro */
+}
+
+/* =========================================
+   BANNER CON CURVA MEJORADA
+========================================= */
+
+.background {
+  position: absolute;
+  inset: 0 0 auto 0;
+  width: 100%;
+  height: 550px;
+  z-index: 1;
+}
+
+.backgroundImage {
+  object-fit: cover;
+  object-position: center 30%;
+}
+
+/* --- CURVA PRINCIPAL --- */
+.curve {
+  position: absolute;
+  z-index: 2;
+  left: -5%;
+  top: 320px;
+  width: 110%;
+  height: 600px;
+  background: #f3ecbe; /* color3 - Arena claro */
+  border-radius: 50% 50% 0 0 / 25% 25% 0 0;
+  box-shadow: 0 -20px 60px rgba(89, 41, 27, 0.04);
+}
+
+/* --- CURVA SECUNDARIA --- */
+.curve::after {
+  content: "";
+  position: absolute;
+  left: -10%;
+  top: -20px;
+  width: 120%;
+  height: 80px;
+  background: #f3ecbe;
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+}
+
+/* =========================================
+   CONTENIDO
+========================================= */
+
+.content {
+  position: relative;
+  z-index: 3;
+  min-height: 760px;
+}
+
+.container {
+  position: relative;
+  z-index: 4;
+  width: min(1280px, calc(100% - 80px));
+  min-height: 760px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 36% 64%;
+  align-items: center;
+  padding-top: 240px;
+}
+
+/* =========================================
+   INTRO
+========================================= */
+
+.intro {
+  position: relative;
+  z-index: 6;
+  max-width: 450px;
+  align-self: center;
+  padding: 40px 20px 80px 0;
+}
+
+.heart {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  color: #ef7270;
+  font-size: 40px;
+  font-weight: 300;
+  line-height: 1;
+}
+
+.eyebrow {
+  display: block;
+  margin-bottom: 16px;
+  color: #ef7270;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 0;
+  color: #59291b;
+  font-size: clamp(42px, 4vw, 58px);
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: -1.8px;
+}
+
+.description {
+  max-width: 400px;
+  margin: 25px 0 28px;
+  color: #6b6a66;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.allButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 0 25px;
+  border-radius: 999px;
+  background: #ef7270;
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-decoration: none;
+  transition:
+    transform 0.25s ease,
+    background 0.25s ease;
+}
+
+.allButton:hover {
+  background: #e05a58;
+  transform: translateY(-2px);
+}
+
+/* =========================================
+   ANIMALES
+========================================= */
+
+.animalsWrapper {
+  position: relative;
+  z-index: 6;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding-bottom: 55px;
+}
+
+.animalsGrid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  padding: 0 55px 0 10px;
+}
+
+/* =========================================
+   CARD
+========================================= */
+
+.card {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  background: #ffffff;
+  border: 4px solid #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 18px 40px rgba(89, 41, 27, 0.1);
+  text-decoration: none;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 26px 48px rgba(89, 41, 27, 0.14);
+}
+
+/* =========================================
+   IMAGEN CARD
+========================================= */
+
+.cardImage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 0.84;
+  overflow: hidden;
+  background: #f3ecbe;
+}
+
+.animalImage {
+  object-fit: cover;
+  transition: transform 0.45s ease;
+}
+
+.card:hover .animalImage {
+  transform: scale(1.04);
+}
+
+.noImage {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f3ecbe;
+}
+
+.noImage span {
+  font-size: 42px;
+  color: #cdaf7b;
+}
+
+/* =========================================
+   DATOS CARD
+========================================= */
+
+.cardContent {
+  min-height: 105px;
+  padding: 14px 15px 16px;
+}
+
+.cardContent h3 {
+  margin: 0 0 6px;
+  color: #59291b;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.meta {
+  margin: 0 0 10px;
+  color: #cdaf7b;
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.meta span {
+  margin: 0 5px;
+  color: #ee9f80;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  min-height: 23px;
+  padding: 0 9px;
+  border-radius: 999px;
+  background: #f3ecbe;
+  color: #ef7270;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/* =========================================
+   FLECHA
+========================================= */
+
+.nextButton {
+  position: absolute;
+  right: -2px;
+  top: 50%;
+  width: 54px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #cdaf7b;
+  font-size: 28px;
+  font-weight: 300;
+  text-decoration: none;
+  box-shadow: 0 12px 28px rgba(89, 41, 27, 0.1);
+  transform: translateY(-50%);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.nextButton:hover {
+  transform: translateY(-50%) translateX(4px);
+  color: #ef7270;
+  box-shadow: 0 16px 34px rgba(89, 41, 27, 0.14);
+}
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 1100px) {
+  .section {
+    min-height: 700px;
+  }
+
+  .background {
+    height: 480px;
+  }
+
+  .curve {
+    top: 280px;
+    height: 500px;
+    border-radius: 50% 50% 0 0 / 20% 20% 0 0;
+  }
+
+  .content,
+  .container {
+    min-height: 700px;
+  }
+
+  .container {
+    width: calc(100% - 50px);
+    grid-template-columns: 38% 62%;
+    padding-top: 200px;
+  }
+
+  .title {
+    font-size: 44px;
+  }
+
+  .animalsGrid {
+    gap: 12px;
+    padding-right: 45px;
+  }
+
+  .cardContent h3 {
+    font-size: 18px;
+  }
+
+  .nextButton {
+    width: 48px;
+    height: 48px;
+    font-size: 24px;
+  }
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 768px) {
+  .section {
+    min-height: auto;
+    padding-bottom: 70px;
+  }
+
+  .background {
+    height: 380px;
+  }
+
+  .curve {
+    top: 240px;
+    left: -30%;
+    width: 160%;
+    height: 700px;
+    border-radius: 50% 50% 0 0 / 12% 12% 0 0;
+  }
+
+  .curve::after {
+    display: none;
+  }
+
+  .content {
+    min-height: auto;
+  }
+
+  .container {
+    width: calc(100% - 36px);
+    display: flex;
+    flex-direction: column;
+    min-height: auto;
+    padding-top: 280px;
+  }
+
+  .intro {
+    width: 100%;
+    max-width: 520px;
+    padding: 0 0 45px;
+  }
+
+  .heart {
+    margin-bottom: 16px;
+  }
+
+  .eyebrow {
+    margin-bottom: 13px;
+    font-size: 10px;
+  }
+
+  .title {
+    font-size: 40px;
+    line-height: 1.07;
+  }
+
+  .description {
+    margin-top: 20px;
+    font-size: 13px;
+  }
+
+  .animalsWrapper {
+    padding: 0;
+  }
+
+  .animalsGrid {
+    display: flex;
+    overflow-x: auto;
+    gap: 14px;
+    padding: 0 0 20px;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .animalsGrid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .card {
+    flex: 0 0 78%;
+    scroll-snap-align: start;
+  }
+
+  .nextButton {
+    display: none;
+  }
+}
+
+/* =========================================
+   MOBILE PEQUEÑO
+========================================= */
+
+@media (max-width: 480px) {
+  .background {
+    height: 340px;
+  }
+
+  .curve {
+    top: 210px;
+    left: -40%;
+    width: 180%;
+    height: 600px;
+    border-radius: 50% 50% 0 0 / 10% 10% 0 0;
+  }
+
+  .container {
+    padding-top: 250px;
+  }
+
+  .title {
+    font-size: 35px;
+  }
+
+  .card {
+    flex-basis: 86%;
+  }
+
+  .cardImage {
+    aspect-ratio: 0.88;
+  }
+}

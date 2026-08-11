@@ -1,0 +1,382 @@
+.page {
+  background: #f8f6f3;
+  min-height: 100vh;
+  padding: 32px 40px;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* --- HEADER --- */
+.header {
+  margin-bottom: 28px;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #59291b;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 16px;
+  transition: color 0.2s ease;
+}
+
+.backLink:hover {
+  color: #ef7270;
+}
+
+.backIcon {
+  font-size: 14px;
+}
+
+.headerContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.iconWrapper {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: #ffffff;
+  border: 1px solid #f0ebe4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.headerIcon {
+  font-size: 22px;
+  color: #ef7270;
+}
+
+.title {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  color: #2d2a24;
+  letter-spacing: -0.3px;
+}
+
+.subtitle {
+  margin: 2px 0 0 0;
+  color: #59291b;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.subtitle strong {
+  color: #2d2a24;
+  font-weight: 600;
+}
+
+/* --- FORMULARIO --- */
+.formWrapper {
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #f0ebe4;
+  padding: 32px 36px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+/* Estilos para el formulario en dos columnas */
+.formWrapper :global(form) {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px 28px;
+}
+
+/* Campos que ocupan toda la fila */
+.formWrapper :global(form) > div:has(textarea),
+.formWrapper :global(form) > div:has(input[type="file"]),
+.formWrapper :global(form) > div:has(.checkbox-group),
+.formWrapper :global(form) > div:last-of-type {
+  grid-column: 1 / -1;
+}
+
+/* Estilos de los campos */
+.formWrapper :global(.field) {
+  display: flex;
+  flex-direction: column;
+}
+
+.formWrapper :global(.field label) {
+  font-size: 13px;
+  font-weight: 600;
+  color: #2d2a24;
+  margin-bottom: 6px;
+}
+
+.formWrapper :global(.field input),
+.formWrapper :global(.field textarea),
+.formWrapper :global(.field select) {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 14px;
+  color: #2d2a24;
+  background: #ffffff;
+  border: 1.5px solid #e5ddd4;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.formWrapper :global(.field input):focus,
+.formWrapper :global(.field textarea):focus,
+.formWrapper :global(.field select):focus {
+  border-color: #ef7270;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(239, 114, 112, 0.08);
+}
+
+.formWrapper :global(.field textarea) {
+  min-height: 80px;
+  resize: vertical;
+}
+
+.formWrapper :global(.field select) {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23b5a48c' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 40px;
+  cursor: pointer;
+}
+
+/* Checkboxes */
+.formWrapper :global(.checkbox-group) {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  padding-top: 4px;
+}
+
+.formWrapper :global(.checkbox-group label) {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 400;
+  color: #2d2a24;
+  cursor: pointer;
+  margin-bottom: 0;
+}
+
+.formWrapper :global(.checkbox-group input[type="checkbox"]) {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  accent-color: #ef7270;
+  cursor: pointer;
+}
+
+/* Imagen */
+.formWrapper :global(.image-preview) {
+  margin-top: 12px;
+}
+
+.formWrapper :global(.preview-image) {
+  border-radius: 10px;
+  object-fit: cover;
+  border: 1px solid #f0ebe4;
+}
+
+/* Botones */
+.formWrapper :global(.actions) {
+  display: flex;
+  gap: 12px;
+  padding-top: 16px;
+  border-top: 1px solid #f0ebe4;
+  margin-top: 8px;
+  grid-column: 1 / -1;
+}
+
+.formWrapper :global(.cancel-button) {
+  padding: 10px 24px;
+  background: transparent;
+  color: #59291b;
+  border: 1.5px solid #e5ddd4;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.formWrapper :global(.cancel-button):hover {
+  background: #f8f6f3;
+  border-color: #cdaf7b;
+}
+
+.formWrapper :global(.submit-button) {
+  padding: 10px 28px;
+  background: #ef7270;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.formWrapper :global(.submit-button):hover:not(:disabled) {
+  background: #e05a58;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(239, 114, 112, 0.3);
+}
+
+.formWrapper :global(.submit-button):disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 1024px) {
+  .page {
+    padding: 24px 32px;
+  }
+
+  .formWrapper {
+    padding: 28px 32px;
+  }
+}
+
+@media (max-width: 768px) {
+  .page {
+    padding: 16px;
+  }
+
+  .header {
+    margin-bottom: 20px;
+  }
+
+  .backLink {
+    margin-bottom: 12px;
+  }
+
+  .headerContent {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .headerLeft {
+    gap: 12px;
+  }
+
+  .iconWrapper {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+  }
+
+  .headerIcon {
+    font-size: 18px;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+
+  .subtitle {
+    font-size: 13px;
+  }
+
+  .formWrapper {
+    padding: 20px;
+    border-radius: 12px;
+  }
+
+  .formWrapper :global(form) {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .formWrapper :global(form) > div:has(textarea),
+  .formWrapper :global(form) > div:has(input[type="file"]),
+  .formWrapper :global(form) > div:has(.checkbox-group),
+  .formWrapper :global(form) > div:last-of-type {
+    grid-column: 1;
+  }
+
+  .formWrapper :global(.checkbox-group) {
+    gap: 10px 16px;
+  }
+
+  .formWrapper :global(.actions) {
+    flex-direction: column;
+  }
+
+  .formWrapper :global(.cancel-button),
+  .formWrapper :global(.submit-button) {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .formWrapper :global(.field input),
+  .formWrapper :global(.field textarea),
+  .formWrapper :global(.field select) {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .page {
+    padding: 12px;
+  }
+
+  .headerLeft {
+    gap: 10px;
+  }
+
+  .iconWrapper {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+  }
+
+  .headerIcon {
+    font-size: 16px;
+  }
+
+  .title {
+    font-size: 18px;
+  }
+
+  .subtitle {
+    font-size: 12px;
+  }
+
+  .formWrapper {
+    padding: 16px;
+    border-radius: 10px;
+  }
+
+  .formWrapper :global(form) {
+    gap: 12px;
+  }
+
+  .formWrapper :global(.checkbox-group) {
+    gap: 8px 12px;
+  }
+
+  .formWrapper :global(.checkbox-group label) {
+    font-size: 13px;
+  }
+}

@@ -1,0 +1,293 @@
+.main {
+  max-width: 1400px;
+  width: 100%;
+  padding: 32px 40px;
+  margin: 0 auto;
+  background: #f8f6f3;
+  min-height: 100vh;
+}
+
+/* --- HEADER --- */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.title {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+  color: #2d2a24;
+  letter-spacing: -0.5px;
+}
+
+.subtitle {
+  margin: 4px 0 0 0;
+  color: #59291b;
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.btnPrimary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: #ef7270;
+  color: #ffffff;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btnPrimary:hover {
+  background: #e05a58;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(239, 114, 112, 0.3);
+}
+
+.btnIcon {
+  font-size: 16px;
+}
+
+/* --- EMPTY STATE --- */
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  background: #ffffff;
+  border: 1px solid #f0ebe4;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.emptyIcon {
+  font-size: 48px;
+  color: #59291b;
+  margin-bottom: 16px;
+}
+
+.emptyState p {
+  color: #2d2a24;
+  font-size: 16px;
+  margin: 0 0 20px 0;
+}
+
+/* --- TABLA --- */
+.tableContainer {
+  background: #ffffff;
+  border: 1px solid #f0ebe4;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table thead {
+  background: #f8f6f3;
+  border-bottom: 1px solid #f0ebe4;
+}
+
+.table th {
+  padding: 14px 20px;
+  text-align: left;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #59291b;
+}
+
+.table td {
+  padding: 12px 20px;
+  border-bottom: 1px solid #f8f6f3;
+  vertical-align: middle;
+}
+
+.table tbody tr {
+  transition: background 0.2s ease;
+}
+
+.table tbody tr:hover {
+  background: #f8f6f3;
+}
+
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* --- TÍTULO --- */
+.postTitle {
+  font-weight: 600;
+  color: #2d2a24;
+  font-size: 14px;
+}
+
+/* --- TIPO --- */
+.tipoBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #2d2a24;
+}
+
+.tipoIcon {
+  font-size: 14px;
+  color: #59291b;
+}
+
+/* --- BADGES --- */
+.badge {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  display: inline-block;
+}
+
+.badgePublicado {
+  background: #f0ebe4;
+  color: #2d2a24;
+}
+
+.badgeBorrador {
+  background: #f5f3f0;
+  color: #59291b;
+}
+
+/* --- FECHA --- */
+.dateText {
+  font-size: 13px;
+  color: #59291b;
+}
+
+/* --- ACCIONES --- */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.actionEdit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  color: #59291b;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.actionEdit:hover {
+  background: #f0ebe4;
+  color: #ef7270;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 1024px) {
+  .main {
+    padding: 24px;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .main {
+    padding: 16px;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .title {
+    font-size: 22px;
+  }
+
+  .subtitle {
+    font-size: 14px;
+  }
+
+  .btnPrimary {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .tableContainer {
+    overflow-x: auto;
+  }
+
+  .table {
+    min-width: 600px;
+  }
+
+  .table th,
+  .table td {
+    padding: 10px 14px;
+  }
+
+  .badge {
+    font-size: 10px;
+    padding: 3px 10px;
+  }
+
+  .actions {
+    gap: 4px;
+  }
+
+  .actionEdit {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+@media (max-width: 480px) {
+  .main {
+    padding: 12px;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+
+  .table th,
+  .table td {
+    padding: 8px 10px;
+    font-size: 12px;
+  }
+
+  .postTitle {
+    font-size: 12px;
+  }
+
+  .tipoBadge {
+    font-size: 12px;
+  }
+
+  .dateText {
+    font-size: 11px;
+  }
+}

@@ -1,0 +1,71 @@
+/* =========================================
+   LAYOUT PÚBLICO
+========================================= */
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: #f3ecbe; /* color3 - Arena claro */
+}
+
+.main {
+  flex: 1;
+  padding-top: 80px; /* Altura del navbar fijo */
+  width: 100%;
+  position: relative;
+}
+
+/* =========================================
+   VARIANTES DE FONDO
+========================================= */
+
+/* Si alguna página necesita fondo blanco */
+.mainWhite {
+  background: #ffffff;
+}
+
+/* Si alguna página necesita fondo oscuro */
+.mainDark {
+  background: #59291b; /* color5 - Marrón oscuro */
+}
+
+/* Si alguna página necesita fondo claro */
+.mainLight {
+  background: #f8f6f3;
+}
+
+/* =========================================
+   ANIMACIONES
+========================================= */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.main > *:first-child {
+  animation: fadeIn 0.6s ease forwards;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 768px) {
+  .main {
+    padding-top: 68px; /* Altura del navbar en móvil */
+  }
+}
+
+@media (max-width: 480px) {
+  .main {
+    padding-top: 60px; /* Altura del navbar en móvil pequeño */
+  }
+}

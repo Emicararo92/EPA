@@ -1,0 +1,27 @@
+.adminContainer {
+  display: flex;
+  min-height: 100vh;
+  background: #faf8f5;
+}
+
+.contentArea {
+  flex: 1;
+  padding: 0;
+  background: #faf8f5;
+  min-height: 100vh;
+  width: calc(100% - 240px);
+  margin-left: 0;
+}
+
+/* Responsive para cuando el sidebar se colapsa */
+@media (max-width: 1024px) {
+  .contentArea {
+    width: calc(100% - 72px);
+  }
+}
+
+@media (max-width: 768px) {
+  .contentArea {
+    width: calc(100% - 64px);
+  }
+}
