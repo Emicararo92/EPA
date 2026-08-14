@@ -11,7 +11,28 @@ import {
 } from "react-icons/fa";
 import styles from "./DonationSection.module.css";
 
-const donationAmounts = ["$2500", "$5000", "$10000", "$20000", "Libre"];
+const donationOptions = [
+  {
+    label: "$2500",
+    link: "https://link.mercadopago.com.ar/pruebafundacion1992",
+  },
+  {
+    label: "$5000",
+    link: "https://link.mercadopago.com.ar/pruebafundacion1992",
+  },
+  {
+    label: "$10000",
+    link: "https://link.mercadopago.com.ar/pruebafundacion1992",
+  },
+  {
+    label: "$20000",
+    link: "https://link.mercadopago.com.ar/pruebafundacion1992",
+  },
+  {
+    label: "Libre",
+    link: "https://link.mercadopago.com.ar/pruebafundacion1992",
+  },
+];
 
 const pawVariants: Variants = {
   hidden: {
@@ -51,6 +72,10 @@ const contentVariants: Variants = {
 export default function DonationSection() {
   const [selectedAmount, setSelectedAmount] = useState("$5000");
 
+  const selectedOption =
+    donationOptions.find((option) => option.label === selectedAmount) ??
+    donationOptions[1];
+
   return (
     <section id="donaciones" className={styles.section}>
       <div className={styles.backgroundPaw}>
@@ -85,14 +110,14 @@ export default function DonationSection() {
             <span className={styles.amountLabel}>Elegí tu aporte</span>
 
             <div className={styles.amounts}>
-              {donationAmounts.map((amount, index) => (
+              {donationOptions.map((option, index) => (
                 <motion.button
-                  key={amount}
+                  key={option.label}
                   type="button"
                   className={`${styles.amount} ${
-                    selectedAmount === amount ? styles.selected : ""
+                    selectedAmount === option.label ? styles.selected : ""
                   }`}
-                  onClick={() => setSelectedAmount(amount)}
+                  onClick={() => setSelectedAmount(option.label)}
                   variants={pawVariants}
                   initial="hidden"
                   whileInView="visible"
@@ -107,22 +132,28 @@ export default function DonationSection() {
                   whileTap={{
                     scale: 0.96,
                   }}
+                  aria-pressed={selectedAmount === option.label}
                 >
                   <span className={styles.amountPaw}>
                     <FaPaw />
                   </span>
 
-                  <span className={styles.amountText}>
-                    {amount === "Libre" ? "Libre" : amount}
-                  </span>
+                  <span className={styles.amountText}>{option.label}</span>
                 </motion.button>
               ))}
             </div>
           </div>
 
           <div className={styles.actionArea}>
-            <div className={styles.selectedMessage}>
+            <motion.div
+              className={styles.selectedMessage}
+              key={selectedAmount}
+              initial={{ opacity: 0, y: 5 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.25 }}
+            >
               <FaHeart />
+
               <span>
                 Tu aporte de{" "}
                 <strong>
@@ -132,15 +163,19 @@ export default function DonationSection() {
                 </strong>{" "}
                 suma una nueva oportunidad.
               </span>
-            </div>
+            </motion.div>
 
             <Link
-              href="https://link.mercadopago.com.ar/pruebafundacion1992"
+              href={selectedOption.link}
               className={styles.donateButton}
               target="_blank"
               rel="noopener noreferrer"
             >
-              <span>Donar ahora</span>
+              <span>
+                {selectedAmount === "Libre"
+                  ? "Donar ahora"
+                  : `Donar ${selectedAmount}`}
+              </span>
 
               <span className={styles.buttonIcon}>
                 <FaArrowRight />
@@ -151,13 +186,20 @@ export default function DonationSection() {
 
         <motion.div
           className={styles.visual}
-          initial={{ opacity: 0, scale: 0.9, rotate: 2 }}
+          initial={{
+            opacity: 0,
+            scale: 0.9,
+            rotate: 2,
+          }}
           whileInView={{
             opacity: 1,
             scale: 1,
             rotate: 0,
           }}
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={{
+            once: true,
+            amount: 0.2,
+          }}
           transition={{
             duration: 0.9,
             ease: [0.22, 1, 0.36, 1],

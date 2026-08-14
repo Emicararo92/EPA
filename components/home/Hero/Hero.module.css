@@ -13,6 +13,15 @@
   background: #f2eeeb;
 }
 
+.picture {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: -3;
+}
+
 .image {
   z-index: -3;
   object-fit: cover;
@@ -25,6 +34,7 @@
   inset: 0;
   z-index: -2;
   pointer-events: none;
+
   background: linear-gradient(
     90deg,
     rgba(242, 238, 235, 0.04) 0%,
@@ -36,34 +46,45 @@
 .content {
   position: relative;
   z-index: 2;
+
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+
   width: min(100% - 48px, 680px);
   min-height: min(760px, 100svh);
+
   margin-left: clamp(24px, 7vw, 120px);
+
   padding-top: clamp(150px, 20vh, 190px);
   padding-bottom: 120px;
 }
 
 .eyebrow {
   margin-bottom: 20px;
+
   color: #697355;
+
   font-size: 0.78rem;
   font-weight: 800;
   letter-spacing: 0.14em;
   line-height: 1.2;
+
   text-transform: uppercase;
 }
 
 .title {
   max-width: 670px;
+
   margin: 0;
+
   color: #735236;
+
   font-size: clamp(3.4rem, 5.3vw, 5.5rem);
   font-weight: 800;
   letter-spacing: -0.055em;
   line-height: 0.98;
+
   text-wrap: balance;
 }
 
@@ -73,11 +94,15 @@
 
 .description {
   max-width: 530px;
+
   margin: 30px 0 0;
+
   color: #735236;
+
   font-size: clamp(1rem, 1.25vw, 1.15rem);
   font-weight: 500;
   line-height: 1.7;
+
   text-wrap: pretty;
 }
 
@@ -85,6 +110,7 @@
   display: flex;
   align-items: center;
   gap: 14px;
+
   margin-top: 36px;
 }
 
@@ -93,13 +119,18 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+
   min-height: 54px;
   padding: 0 25px;
+
   border-radius: 999px;
+
   font-size: 0.96rem;
   font-weight: 800;
   line-height: 1;
+
   text-decoration: none;
+
   transition:
     transform 220ms ease,
     background-color 220ms ease,
@@ -110,14 +141,18 @@
 
 .primaryButton {
   gap: 14px;
+
   color: #f2eeeb;
   background: #697355;
+
   box-shadow: 0 10px 25px rgba(105, 115, 85, 0.16);
 }
 
 .primaryButton:hover {
   transform: translateY(-3px);
+
   background: #735236;
+
   box-shadow: 0 14px 30px rgba(105, 115, 85, 0.2);
 }
 
@@ -131,7 +166,9 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+
   font-size: 1.15rem;
+
   transition: transform 220ms ease;
 }
 
@@ -141,13 +178,17 @@
 
 .secondaryButton {
   color: #735236;
+
   border: 1.5px solid rgba(115, 82, 54, 0.45);
+
   background: rgba(242, 238, 235, 0.3);
+
   backdrop-filter: blur(4px);
 }
 
 .secondaryButton:hover {
   transform: translateY(-3px);
+
   color: #735236;
   border-color: #d9a3a3;
   background: #d9a3a3;
@@ -156,23 +197,31 @@
 .scrollHint {
   position: absolute;
   z-index: 3;
+
   right: clamp(24px, 4vw, 60px);
   bottom: 32px;
+
   display: flex;
   align-items: center;
   gap: 12px;
+
   color: #735236;
+
   font-size: 0.7rem;
   font-weight: 800;
   letter-spacing: 0.12em;
+
   text-transform: uppercase;
 }
 
 .scrollLine {
   display: block;
+
   width: 42px;
   height: 1px;
+
   background: #735236;
+
   opacity: 0.55;
 }
 
@@ -181,9 +230,14 @@
   transform: translateY(-1px);
 }
 
+/* =========================================
+   TABLET
+========================================= */
+
 @media (max-width: 1100px) {
   .content {
     width: min(100% - 48px, 570px);
+
     margin-left: clamp(24px, 5vw, 64px);
   }
 
@@ -195,6 +249,10 @@
     max-width: 470px;
   }
 }
+
+/* =========================================
+   MOBILE
+========================================= */
 
 @media (max-width: 800px) {
   .banner {
@@ -216,14 +274,18 @@
 
   .content {
     width: min(100% - 40px, 600px);
+
     min-height: 720px;
+
     margin: 0 auto;
+
     padding-top: 150px;
     padding-bottom: 110px;
   }
 
   .title {
     max-width: 590px;
+
     font-size: clamp(3rem, 9vw, 4.5rem);
   }
 
@@ -237,40 +299,78 @@
   }
 }
 
+/* =========================================
+   MOBILE PEQUEÑO
+========================================= */
+
 @media (max-width: 560px) {
   .banner {
     min-height: 690px;
   }
 
   .image {
-    object-position: 69% center;
+    object-position: center top;
   }
 
   .overlay {
     background: linear-gradient(
       180deg,
       rgba(242, 238, 235, 0.04) 0%,
-      rgba(242, 238, 235, 0.2) 38%,
-      rgba(242, 238, 235, 0.92) 76%,
+      rgba(242, 238, 235, 0.12) 32%,
+      rgba(242, 238, 235, 0.72) 58%,
+      rgba(242, 238, 235, 0.96) 76%,
       #f2eeeb 100%
     );
   }
 
   .content {
     width: calc(100% - 32px);
+
     min-height: 690px;
+
+    margin: 0 auto;
+
     padding-top: 300px;
     padding-bottom: 90px;
   }
 
   .eyebrow {
+    display: inline-flex;
+    width: fit-content;
+
     margin-bottom: 14px;
+    padding: 6px 10px;
+
+    border-radius: 999px;
+
+    color: #697355;
+
+    background: rgba(242, 238, 235, 0.82);
+
     font-size: 0.68rem;
+    font-weight: 800;
     letter-spacing: 0.11em;
+    line-height: 1.2;
+
+    text-transform: uppercase;
+
+    backdrop-filter: blur(4px);
   }
 
   .title {
     max-width: 100%;
+
+    margin: 0 -8px;
+    padding: 10px 8px 12px;
+
+    border-radius: 14px;
+
+    color: #735236;
+
+    background: rgba(242, 238, 235, 0.88);
+
+    box-shadow: 0 8px 30px rgba(115, 82, 54, 0.06);
+
     font-size: clamp(2.65rem, 12vw, 3.8rem);
     letter-spacing: -0.06em;
     line-height: 0.99;
@@ -278,7 +378,11 @@
 
   .description {
     max-width: 100%;
+
     margin-top: 22px;
+
+    color: #735236;
+
     font-size: 0.95rem;
     line-height: 1.6;
   }
@@ -286,7 +390,9 @@
   .actions {
     flex-direction: column;
     align-items: stretch;
+
     width: 100%;
+
     margin-top: 28px;
   }
 
@@ -300,6 +406,10 @@
     display: none;
   }
 }
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
 
 @media (prefers-reduced-motion: reduce) {
   .primaryButton,

@@ -9,15 +9,19 @@ export default function Hero() {
   return (
     <section className={styles.hero}>
       <div className={styles.banner}>
-        <Image
-          src="https://res.cloudinary.com/diefdex1h/image/upload/v1786727290/ChatGPT_Image_14_ago_2026_02_06_47_p.m._sdzvbp.png"
-          alt="Perro siendo adoptado por una familia"
-          fill
-          priority
-          sizes="100vw"
-          className={styles.image}
-          quality={90}
-        />
+        <picture className={styles.picture}>
+          <source media="(max-width: 560px)" srcSet="/FondoCelu.png" />
+
+          <Image
+            src="https://res.cloudinary.com/diefdex1h/image/upload/v1786727290/ChatGPT_Image_14_ago_2026_02_06_47_p.m._sdzvbp.png"
+            alt="Perro siendo adoptado por una familia"
+            fill
+            priority
+            sizes="100vw"
+            className={styles.image}
+            quality={90}
+          />
+        </picture>
 
         <div className={styles.overlay} />
 
@@ -70,10 +74,15 @@ export default function Hero() {
             className={styles.actions}
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            transition={{
+              duration: 0.7,
+              delay: 0.6,
+              ease: [0.22, 1, 0.36, 1],
+            }}
           >
             <Link href="/animals" className={styles.primaryButton}>
               <span>Ver animales</span>
+
               <span className={styles.arrow} aria-hidden="true">
                 →
               </span>
@@ -89,7 +98,10 @@ export default function Hero() {
           className={styles.scrollHint}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 1.2 }}
+          transition={{
+            duration: 0.8,
+            delay: 1.2,
+          }}
           aria-hidden="true"
         >
           <span>Descubrí sus historias</span>

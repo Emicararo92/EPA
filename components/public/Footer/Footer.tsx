@@ -32,7 +32,7 @@ const helpLinks = [
   },
   {
     label: "Cómo ayudar",
-    href: "#como-ayudar",
+    href: "/nosotros",
   },
 ];
 

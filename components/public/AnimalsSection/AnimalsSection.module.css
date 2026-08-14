@@ -3,11 +3,11 @@
   width: 100%;
   min-height: 760px;
   overflow: hidden;
-  background: #f3ecbe; /* color3 - Arena claro */
+  background: #f2eeeb;
 }
 
 /* =========================================
-   BANNER CON CURVA MEJORADA
+   BANNER
 ========================================= */
 
 .background {
@@ -23,28 +23,59 @@
   object-position: center 30%;
 }
 
-/* --- CURVA PRINCIPAL --- */
+/* Capa muy sutil para integrar la fotografía
+   con el fondo de la sección */
+
+.background::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background: linear-gradient(
+    180deg,
+    rgba(242, 238, 235, 0) 35%,
+    rgba(242, 238, 235, 0.12) 65%,
+    rgba(242, 238, 235, 0.38) 100%
+  );
+}
+
+/* =========================================
+   CURVA PRINCIPAL
+========================================= */
+
 .curve {
   position: absolute;
   z-index: 2;
+
   left: -5%;
   top: 320px;
+
   width: 110%;
   height: 600px;
-  background: #f3ecbe; /* color3 - Arena claro */
+
+  background: #f2eeeb;
+
   border-radius: 50% 50% 0 0 / 25% 25% 0 0;
-  box-shadow: 0 -20px 60px rgba(89, 41, 27, 0.04);
+
+  box-shadow: 0 -20px 60px rgba(115, 82, 54, 0.035);
 }
 
-/* --- CURVA SECUNDARIA --- */
+/* Curva secundaria para hacer la transición
+   más orgánica */
+
 .curve::after {
   content: "";
+
   position: absolute;
+
   left: -10%;
   top: -20px;
+
   width: 120%;
   height: 80px;
-  background: #f3ecbe;
+
+  background: #f2eeeb;
+
   border-radius: 50% 50% 0 0 / 100% 100% 0 0;
 }
 
@@ -55,18 +86,24 @@
 .content {
   position: relative;
   z-index: 3;
+
   min-height: 760px;
 }
 
 .container {
   position: relative;
   z-index: 4;
+
   width: min(1280px, calc(100% - 80px));
   min-height: 760px;
+
   margin: 0 auto;
+
   display: grid;
   grid-template-columns: 36% 64%;
+
   align-items: center;
+
   padding-top: 240px;
 }
 
@@ -77,72 +114,128 @@
 .intro {
   position: relative;
   z-index: 6;
+
   max-width: 450px;
+
   align-self: center;
+
   padding: 40px 20px 80px 0;
 }
+
+/* Pequeño detalle editorial */
 
 .heart {
   width: 44px;
   height: 44px;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   margin-bottom: 20px;
-  color: #ef7270;
+
+  color: #d9a3a3;
+
   font-size: 40px;
   font-weight: 300;
   line-height: 1;
+
+  transform: rotate(-8deg);
 }
 
 .eyebrow {
   display: block;
+
   margin-bottom: 16px;
-  color: #ef7270;
+
+  color: #697355;
+
   font-size: 11px;
-  font-weight: 700;
+  font-weight: 800;
+
   letter-spacing: 1.6px;
+
   text-transform: uppercase;
 }
 
 .title {
   margin: 0;
-  color: #59291b;
+
+  color: #735236;
+
   font-size: clamp(42px, 4vw, 58px);
-  font-weight: 700;
-  line-height: 1.04;
+  font-weight: 800;
+
+  line-height: 1.02;
+
   letter-spacing: -1.8px;
 }
 
 .description {
   max-width: 400px;
+
   margin: 25px 0 28px;
-  color: #6b6a66;
+
+  color: rgba(115, 82, 54, 0.72);
+
   font-size: 14px;
+
   line-height: 1.7;
 }
 
+/* =========================================
+   CTA
+========================================= */
+
 .allButton {
   display: inline-flex;
+
   align-items: center;
   justify-content: center;
+  gap: 12px;
+
   min-height: 46px;
-  padding: 0 25px;
+
+  padding: 0 22px;
+
+  border: 1px solid #697355;
   border-radius: 999px;
-  background: #ef7270;
-  color: #ffffff;
+
+  background: #697355;
+  color: #f2eeeb;
+
   font-size: 10px;
-  font-weight: 700;
+  font-weight: 800;
+
   letter-spacing: 1px;
+
   text-decoration: none;
+
   transition:
     transform 0.25s ease,
-    background 0.25s ease;
+    background-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.allButton::after {
+  content: "→";
+
+  font-size: 16px;
+  font-weight: 400;
+
+  transition: transform 0.25s ease;
 }
 
 .allButton:hover {
-  background: #e05a58;
+  background: #735236;
+
   transform: translateY(-2px);
+
+  box-shadow: 0 10px 25px rgba(115, 82, 54, 0.14);
+}
+
+.allButton:hover::after {
+  transform: translateX(4px);
 }
 
 /* =========================================
@@ -152,17 +245,23 @@
 .animalsWrapper {
   position: relative;
   z-index: 6;
+
   width: 100%;
+
   display: flex;
   align-items: center;
+
   padding-bottom: 55px;
 }
 
 .animalsGrid {
   width: 100%;
+
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
+
   gap: 18px;
+
   padding: 0 55px 0 10px;
 }
 
@@ -172,56 +271,73 @@
 
 .card {
   position: relative;
+
   display: block;
+
   overflow: hidden;
+
   background: #ffffff;
+
   border: 4px solid #ffffff;
+
   border-radius: 18px;
-  box-shadow: 0 18px 40px rgba(89, 41, 27, 0.1);
+
+  box-shadow: 0 18px 40px rgba(115, 82, 54, 0.1);
+
   text-decoration: none;
+
   transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s ease;
 }
 
 .card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 26px 48px rgba(89, 41, 27, 0.14);
+
+  box-shadow: 0 26px 48px rgba(115, 82, 54, 0.15);
 }
 
 /* =========================================
-   IMAGEN CARD
+   IMAGEN
 ========================================= */
 
 .cardImage {
   position: relative;
+
   width: 100%;
+
   aspect-ratio: 0.84;
+
   overflow: hidden;
-  background: #f3ecbe;
+
+  background: #d9a87e;
 }
 
 .animalImage {
   object-fit: cover;
-  transition: transform 0.45s ease;
+
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .card:hover .animalImage {
-  transform: scale(1.04);
+  transform: scale(1.045);
 }
 
 .noImage {
   width: 100%;
   height: 100%;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #f3ecbe;
+
+  background: #d9a87e;
+
+  color: #735236;
 }
 
 .noImage span {
   font-size: 42px;
-  color: #cdaf7b;
 }
 
 /* =========================================
@@ -230,40 +346,59 @@
 
 .cardContent {
   min-height: 105px;
+
   padding: 14px 15px 16px;
+
+  background: #ffffff;
 }
 
 .cardContent h3 {
   margin: 0 0 6px;
-  color: #59291b;
+
+  color: #735236;
+
   font-size: 20px;
-  font-weight: 700;
+  font-weight: 800;
+
   line-height: 1.2;
 }
 
 .meta {
   margin: 0 0 10px;
-  color: #cdaf7b;
+
+  color: rgba(115, 82, 54, 0.6);
+
   font-size: 11px;
+
   line-height: 1.4;
 }
 
 .meta span {
   margin: 0 5px;
-  color: #ee9f80;
+
+  color: #d9a87e;
 }
 
 .tag {
   display: inline-flex;
+
   align-items: center;
+
   min-height: 23px;
+
   padding: 0 9px;
+
   border-radius: 999px;
-  background: #f3ecbe;
-  color: #ef7270;
+
+  background: rgba(217, 163, 163, 0.18);
+
+  color: #697355;
+
   font-size: 8px;
-  font-weight: 700;
+  font-weight: 800;
+
   letter-spacing: 0.5px;
+
   text-transform: uppercase;
 }
 
@@ -273,30 +408,47 @@
 
 .nextButton {
   position: absolute;
+
   right: -2px;
   top: 50%;
+
   width: 54px;
   height: 54px;
+
   display: flex;
+
   align-items: center;
   justify-content: center;
+
+  border: 1px solid rgba(105, 115, 85, 0.12);
+
   border-radius: 50%;
+
   background: #ffffff;
-  color: #cdaf7b;
+
+  color: #697355;
+
   font-size: 28px;
   font-weight: 300;
+
   text-decoration: none;
-  box-shadow: 0 12px 28px rgba(89, 41, 27, 0.1);
+
+  box-shadow: 0 12px 28px rgba(115, 82, 54, 0.1);
+
   transform: translateY(-50%);
+
   transition:
     transform 0.25s ease,
-    box-shadow 0.25s ease;
+    box-shadow 0.25s ease,
+    color 0.25s ease;
 }
 
 .nextButton:hover {
   transform: translateY(-50%) translateX(4px);
-  color: #ef7270;
-  box-shadow: 0 16px 34px rgba(89, 41, 27, 0.14);
+
+  color: #735236;
+
+  box-shadow: 0 16px 34px rgba(115, 82, 54, 0.14);
 }
 
 /* =========================================
@@ -314,7 +466,9 @@
 
   .curve {
     top: 280px;
+
     height: 500px;
+
     border-radius: 50% 50% 0 0 / 20% 20% 0 0;
   }
 
@@ -325,7 +479,9 @@
 
   .container {
     width: calc(100% - 50px);
+
     grid-template-columns: 38% 62%;
+
     padding-top: 200px;
   }
 
@@ -335,6 +491,7 @@
 
   .animalsGrid {
     gap: 12px;
+
     padding-right: 45px;
   }
 
@@ -345,6 +502,7 @@
   .nextButton {
     width: 48px;
     height: 48px;
+
     font-size: 24px;
   }
 }
@@ -356,6 +514,7 @@
 @media (max-width: 768px) {
   .section {
     min-height: auto;
+
     padding-bottom: 70px;
   }
 
@@ -363,11 +522,24 @@
     height: 380px;
   }
 
+  .background::after {
+    background: linear-gradient(
+      180deg,
+      rgba(242, 238, 235, 0) 30%,
+      rgba(242, 238, 235, 0.25) 70%,
+      rgba(242, 238, 235, 0.5) 100%
+    );
+  }
+
   .curve {
     top: 240px;
+
     left: -30%;
+
     width: 160%;
+
     height: 700px;
+
     border-radius: 50% 50% 0 0 / 12% 12% 0 0;
   }
 
@@ -381,15 +553,20 @@
 
   .container {
     width: calc(100% - 36px);
+
     display: flex;
     flex-direction: column;
+
     min-height: auto;
+
     padding-top: 280px;
   }
 
   .intro {
     width: 100%;
+
     max-width: 520px;
+
     padding: 0 0 45px;
   }
 
@@ -399,16 +576,19 @@
 
   .eyebrow {
     margin-bottom: 13px;
+
     font-size: 10px;
   }
 
   .title {
     font-size: 40px;
+
     line-height: 1.07;
   }
 
   .description {
     margin-top: 20px;
+
     font-size: 13px;
   }
 
@@ -418,10 +598,15 @@
 
   .animalsGrid {
     display: flex;
+
     overflow-x: auto;
+
     gap: 14px;
+
     padding: 0 0 20px;
+
     scroll-snap-type: x mandatory;
+
     scrollbar-width: none;
   }
 
@@ -431,6 +616,7 @@
 
   .card {
     flex: 0 0 78%;
+
     scroll-snap-align: start;
   }
 
@@ -450,9 +636,13 @@
 
   .curve {
     top: 210px;
+
     left: -40%;
+
     width: 180%;
+
     height: 600px;
+
     border-radius: 50% 50% 0 0 / 10% 10% 0 0;
   }
 
@@ -470,5 +660,26 @@
 
   .cardImage {
     aspect-ratio: 0.88;
+  }
+}
+
+/* =========================================
+   ACCESSIBILITY
+========================================= */
+
+.allButton:focus-visible,
+.card:focus-visible,
+.nextButton:focus-visible {
+  outline: 3px solid #d9a3a3;
+  outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .animalImage,
+  .allButton,
+  .allButton::after,
+  .nextButton {
+    transition: none;
   }
 }
