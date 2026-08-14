@@ -6,7 +6,7 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background: #f3ecbe; /* color3 - Arena claro */
+  background: #f2eeeb; /* Blanco roto - base neutra y cálida */
 }
 
 .main {
@@ -22,17 +22,17 @@
 
 /* Si alguna página necesita fondo blanco */
 .mainWhite {
-  background: #ffffff;
+  background: #f2eeeb; /* Blanco roto en lugar de blanco puro */
 }
 
 /* Si alguna página necesita fondo oscuro */
 .mainDark {
-  background: #59291b; /* color5 - Marrón oscuro */
+  background: #735236; /* Marrón terroso - más sofisticado que el marrón oscuro anterior */
 }
 
 /* Si alguna página necesita fondo claro */
 .mainLight {
-  background: #f8f6f3;
+  background: #f2eeeb; /* Unificado con el blanco roto para coherencia */
 }
 
 /* =========================================

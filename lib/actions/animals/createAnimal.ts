@@ -8,8 +8,14 @@ import { createClient } from "@/lib/supabase/server";
 export async function createAnimal(formData: FormData) {
   const supabase = await createClient();
 
-  const nombre = formData.get("nombre") as string;
+  const nombre = ((formData.get("nombre") as string) || "").trim();
+
+  if (!nombre) {
+    throw new Error("El nombre es obligatorio.");
+  }
+
   const especie = formData.get("especie") as "Perro" | "Gato";
+
   const raza = (formData.get("raza") as string) || "";
 
   const edad = formData.get("edad") as
@@ -26,7 +32,14 @@ export async function createAnimal(formData: FormData) {
     | "Grande"
     | null;
 
-  const peso = formData.get("peso") ? Number(formData.get("peso")) : null;
+  const pesoValue = formData.get("peso");
+
+  const peso =
+    pesoValue && String(pesoValue).trim() !== "" ? Number(pesoValue) : null;
+
+  if (peso !== null && (!Number.isFinite(peso) || peso <= 0)) {
+    throw new Error("El peso debe ser mayor a 0.");
+  }
 
   const historia = (formData.get("historia") as string) || "";
 
@@ -52,10 +65,19 @@ export async function createAnimal(formData: FormData) {
   const destacado = formData.has("destacado");
   const publicado = formData.has("publicado");
 
-  const image = formData.get("image");
+  /*
+   * Imágenes
+   */
+  const images = formData
+    .getAll("images")
+    .filter((file): file is File => file instanceof File && file.size > 0);
 
-  if (!(image instanceof File) || image.size === 0) {
-    throw new Error("La imagen es obligatoria.");
+  if (images.length === 0) {
+    throw new Error("Debés subir al menos una imagen.");
+  }
+
+  if (images.length > 5) {
+    throw new Error("Podés subir un máximo de 5 imágenes.");
   }
 
   const slug = nombre
@@ -66,6 +88,9 @@ export async function createAnimal(formData: FormData) {
     .replace(/[^a-z0-9\s-]/g, "")
     .replace(/\s+/g, "-");
 
+  /*
+   * Crear animal
+   */
   const { data: animal, error } = await supabase
     .from("animals")
     .insert({
@@ -97,37 +122,54 @@ export async function createAnimal(formData: FormData) {
     throw new Error(error.message);
   }
 
-  const extension = image.name.split(".").pop()?.toLowerCase() || "jpg";
+  const uploadedPaths: string[] = [];
 
-  const storagePath = `${animal.id}/portada.${extension}`;
+  /*
+   * Subir imágenes
+   */
+  for (let index = 0; index < images.length; index++) {
+    const image = images[index];
 
-  const { error: uploadError } = await supabase.storage
-    .from("animals")
-    .upload(storagePath, image);
+    const extension = image.name.split(".").pop()?.toLowerCase() || "jpg";
 
-  if (uploadError) {
-    await supabase.from("animals").delete().eq("id", animal.id);
+    const storagePath = `${animal.id}/foto-${index + 1}.${extension}`;
 
-    throw new Error(uploadError.message);
-  }
+    const { error: uploadError } = await supabase.storage
+      .from("animals")
+      .upload(storagePath, image);
 
-  const { error: mediaError } = await supabase.from("animal_media").insert({
-    animal_id: animal.id,
-    tipo: "image",
-    storage_path: storagePath,
-    es_portada: true,
-    orden: 1,
-  });
+    if (uploadError) {
+      await supabase.storage.from("animals").remove(uploadedPaths);
 
-  if (mediaError) {
-    await supabase.storage.from("animals").remove([storagePath]);
+      await supabase.from("animals").delete().eq("id", animal.id);
 
-    await supabase.from("animals").delete().eq("id", animal.id);
+      throw new Error(uploadError.message);
+    }
 
-    throw new Error(mediaError.message);
+    uploadedPaths.push(storagePath);
+
+    /*
+     * Primera imagen = portada
+     */
+    const { error: mediaError } = await supabase.from("animal_media").insert({
+      animal_id: animal.id,
+      tipo: "image",
+      storage_path: storagePath,
+      es_portada: index === 0,
+      orden: index + 1,
+    });
+
+    if (mediaError) {
+      await supabase.storage.from("animals").remove(uploadedPaths);
+
+      await supabase.from("animals").delete().eq("id", animal.id);
+
+      throw new Error(mediaError.message);
+    }
   }
 
   revalidatePath("/admin/animals");
+  revalidatePath("/animals");
 
   redirect("/admin/animals");
 }

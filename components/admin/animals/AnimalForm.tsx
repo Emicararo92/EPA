@@ -41,6 +41,7 @@ export default function AnimalForm({
   return (
     <form
       action={action}
+      encType="multipart/form-data"
       style={{
         display: "flex",
         flexDirection: "column",
@@ -138,16 +139,39 @@ export default function AnimalForm({
         defaultValue={initialValues?.observaciones}
       />
 
-      <input
-        type="file"
-        name="image"
-        accept="image/*"
-        required={imageRequired}
-      />
+      {/* IMÁGENES */}
+      <div>
+        <label
+          htmlFor="images"
+          style={{
+            display: "block",
+            marginBottom: 8,
+            fontWeight: 600,
+          }}
+        >
+          Fotos del animal
+        </label>
 
-      {!imageRequired && (
-        <small>Dejá este campo vacío si no querés cambiar la foto.</small>
-      )}
+        <input
+          id="images"
+          type="file"
+          name="images"
+          accept="image/*"
+          multiple
+          required={imageRequired}
+        />
+
+        <small
+          style={{
+            display: "block",
+            marginTop: 6,
+            opacity: 0.7,
+          }}
+        >
+          Podés seleccionar hasta 5 imágenes. La primera será utilizada como
+          portada.
+        </small>
+      </div>
 
       <label>
         <input

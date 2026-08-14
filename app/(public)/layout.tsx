@@ -1,6 +1,7 @@
 import NavBar from "@/components/public/Navbar/Navbar";
 
 import styles from "./PublicLayout.module.css";
+import Footer from "@/components/public/Footer/Footer";
 
 export default function PublicLayout({
   children,
@@ -11,6 +12,7 @@ export default function PublicLayout({
     <div className={styles.layout}>
       <NavBar />
       <main className={styles.main}>{children}</main>
+      <Footer/>
     </div>
   );
 }

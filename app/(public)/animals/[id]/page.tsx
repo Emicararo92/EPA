@@ -1,7 +1,6 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+
 import {
   FaArrowLeft,
   FaPaw,
@@ -11,13 +10,11 @@ import {
   FaDog,
   FaCat,
   FaChild,
-  FaRuler,
-  FaWeight,
-  FaCalendarAlt,
-  FaVenusMars,
 } from "react-icons/fa";
 
 import { getAnimal } from "@/lib/actions/animals/getAnimal";
+
+import AnimalGallery from "../../../../components/public/AnimalsSection/AnimalGallery";
 
 import styles from "./AnimalDetailPage.module.css";
 
@@ -36,54 +33,7 @@ export default async function AnimalDetailPage({ params }: Props) {
     notFound();
   }
 
-  const portada = animal.animal_media?.find(
-    (media: { es_portada: any }) => media.es_portada,
-  );
-
-  const imageUrl = portada
-    ? `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/animals/${portada.storage_path}`
-    : null;
-
-  const edad =
-    animal.edad_anos !== null && animal.edad_anos !== undefined
-      ? `${animal.edad_anos} ${animal.edad_anos === 1 ? "año" : "años"}`
-      : animal.edad_meses !== null && animal.edad_meses !== undefined
-        ? `${animal.edad_meses} ${animal.edad_meses === 1 ? "mes" : "meses"}`
-        : "Edad desconocida";
-
-  const getStatusColor = (estado: string) => {
-    switch (estado) {
-      case "Disponible":
-        return styles.available;
-      case "Reservado":
-        return styles.reserved;
-      case "Adoptado":
-        return styles.adopted;
-      default:
-        return "";
-    }
-  };
-
-  const getStatusEmoji = (estado: string) => {
-    switch (estado) {
-      case "Disponible":
-        return "🐾";
-      case "Reservado":
-        return "⏳";
-      case "Adoptado":
-        return "🏠";
-      default:
-        return "";
-    }
-  };
-
-  const getSexoDisplay = (sexo: string) => {
-    return sexo === "Macho" ? "♂ Macho" : "♀ Hembra";
-  };
-
-  const getSexoIcon = (sexo: string) => {
-    return sexo === "Macho" ? "♂" : "♀";
-  };
+  const edad = animal.edad ?? "Edad desconocida";
 
   return (
     <main className={styles.page}>
@@ -96,39 +46,12 @@ export default async function AnimalDetailPage({ params }: Props) {
 
         {/* Ficha principal */}
         <section className={styles.hero}>
-          {/* Imagen */}
+          {/* Galería */}
           <div className={styles.imageColumn}>
-            <div className={styles.imageWrapper}>
-              {imageUrl ? (
-                <Image
-                  src={imageUrl}
-                  alt={`${animal.nombre} - ${animal.especie} en adopción`}
-                  fill
-                  priority
-                  sizes="(max-width: 900px) 100vw, 55vw"
-                  className={styles.image}
-                  quality={90}
-                />
-              ) : (
-                <div className={styles.noImage}>
-                  <FaPaw />
-                  <span>Sin imagen disponible</span>
-                </div>
-              )}
-
-              {animal.destacado && (
-                <span className={styles.featured}>
-                  <FaHeart />
-                  Destacado
-                </span>
-              )}
-
-              <span
-                className={`${styles.statusBadge} ${getStatusColor(animal.estado)}`}
-              >
-                {getStatusEmoji(animal.estado)} {animal.estado}
-              </span>
-            </div>
+            <AnimalGallery
+              images={animal.animal_media ?? []}
+              animalName={animal.nombre}
+            />
           </div>
 
           {/* Información */}
@@ -140,83 +63,76 @@ export default async function AnimalDetailPage({ params }: Props) {
 
             <h1 className={styles.title}>{animal.nombre}</h1>
 
+            <div className={styles.status}>
+              <span
+                className={`${styles.statusDot} ${
+                  animal.estado === "Disponible"
+                    ? styles.available
+                    : animal.estado === "Reservado"
+                      ? styles.reserved
+                      : styles.adopted
+                }`}
+              />
+
+              {animal.estado}
+            </div>
+
             <p className={styles.intro}>
               {animal.especie}
               {animal.raza ? ` · ${animal.raza}` : ""}
             </p>
 
-            <div className={styles.divider} />
-
             {/* Datos rápidos */}
             <div className={styles.details}>
               <div className={styles.detail}>
-                <span className={styles.detailLabel}>
-                  <FaCalendarAlt />
-                  Edad
-                </span>
+                <span className={styles.detailLabel}>Edad</span>
+
                 <strong>{edad}</strong>
               </div>
 
               <div className={styles.detail}>
-                <span className={styles.detailLabel}>
-                  <FaVenusMars />
-                  Sexo
-                </span>
+                <span className={styles.detailLabel}>Sexo</span>
+
                 <strong>
-                  <span className={styles.sexoIcon}>
-                    {getSexoIcon(animal.sexo)}
-                  </span>
-                  {getSexoDisplay(animal.sexo)}
+                  {animal.sexo === "Macho" ? "♂ Macho" : "♀ Hembra"}
                 </strong>
               </div>
 
               <div className={styles.detail}>
-                <span className={styles.detailLabel}>
-                  <FaRuler />
-                  Tamaño
-                </span>
+                <span className={styles.detailLabel}>Tamaño</span>
+
                 <strong>{animal.tamano ?? "No especificado"}</strong>
               </div>
 
               <div className={styles.detail}>
-                <span className={styles.detailLabel}>
-                  <FaWeight />
-                  Peso
-                </span>
+                <span className={styles.detailLabel}>Peso</span>
+
                 <strong>
                   {animal.peso ? `${animal.peso} kg` : "No especificado"}
                 </strong>
               </div>
             </div>
 
-            <div className={styles.divider} />
-
             {/* CTA */}
-            <Link
-              href={`/adopcion?animal=${animal.id}`}
-              className={styles.adoptButton}
-            >
-              <FaHeart />
-              Quiero adoptar a {animal.nombre}
-            </Link>
+            {animal.estado === "Disponible" && (
+              <Link
+                href={`/adopcion?animal=${animal.id}`}
+                className={styles.adoptButton}
+              >
+                <FaHeart />
+                Quiero adoptar a {animal.nombre}
+              </Link>
+            )}
 
             {animal.estado === "Reservado" && (
               <div className={styles.reservedMessage}>
-                <span className={styles.messageIcon}>⏳</span>
-                <div>
-                  <strong>Reservado</strong>
-                  <p>Este animal se encuentra reservado actualmente.</p>
-                </div>
+                Este animal se encuentra reservado actualmente.
               </div>
             )}
 
             {animal.estado === "Adoptado" && (
               <div className={styles.adoptedMessage}>
-                <span className={styles.messageIcon}>🏠</span>
-                <div>
-                  <strong>¡Adoptado!</strong>
-                  <p>{animal.nombre} ya encontró un hogar ❤️</p>
-                </div>
+                {animal.nombre} ya encontró un hogar ❤️
               </div>
             )}
           </div>
@@ -226,7 +142,7 @@ export default async function AnimalDetailPage({ params }: Props) {
         {animal.historia && (
           <section className={styles.section}>
             <div className={styles.sectionHeader}>
-              <span>📖 Su historia</span>
+              <span>Su historia</span>
               <FaPaw />
             </div>
 
@@ -239,7 +155,8 @@ export default async function AnimalDetailPage({ params }: Props) {
         {/* Características */}
         <section className={styles.section}>
           <div className={styles.sectionHeader}>
-            <span>❤️ Conocé a {animal.nombre}</span>
+            <span>Conocé a {animal.nombre}</span>
+
             <FaHeart />
           </div>
 
@@ -249,6 +166,7 @@ export default async function AnimalDetailPage({ params }: Props) {
                 <div className={styles.featureIcon}>
                   <FaSyringe />
                 </div>
+
                 <span>Vacunado</span>
               </div>
             )}
@@ -258,6 +176,7 @@ export default async function AnimalDetailPage({ params }: Props) {
                 <div className={styles.featureIcon}>
                   <FaShieldAlt />
                 </div>
+
                 <span>Castrado</span>
               </div>
             )}
@@ -267,6 +186,7 @@ export default async function AnimalDetailPage({ params }: Props) {
                 <div className={styles.featureIcon}>
                   <FaPaw />
                 </div>
+
                 <span>Desparasitado</span>
               </div>
             )}
@@ -276,6 +196,7 @@ export default async function AnimalDetailPage({ params }: Props) {
                 <div className={styles.featureIcon}>
                   <FaChild />
                 </div>
+
                 <span>Compatible con niños</span>
               </div>
             )}
@@ -285,6 +206,7 @@ export default async function AnimalDetailPage({ params }: Props) {
                 <div className={styles.featureIcon}>
                   <FaDog />
                 </div>
+
                 <span>Compatible con perros</span>
               </div>
             )}
@@ -294,28 +216,18 @@ export default async function AnimalDetailPage({ params }: Props) {
                 <div className={styles.featureIcon}>
                   <FaCat />
                 </div>
+
                 <span>Compatible con gatos</span>
               </div>
             )}
           </div>
-
-          {!animal.vacunado &&
-            !animal.castrado &&
-            !animal.desparasitado &&
-            !animal.compatible_ninos &&
-            !animal.compatible_perros &&
-            !animal.compatible_gatos && (
-              <p className={styles.noFeatures}>
-                No hay características adicionales registradas para{" "}
-                {animal.nombre}.
-              </p>
-            )}
         </section>
 
         {/* Observaciones */}
         {animal.observaciones && (
           <section className={styles.observations}>
-            <span>⚠️ Importante</span>
+            <span>Importante</span>
+
             <p>{animal.observaciones}</p>
           </section>
         )}
@@ -327,6 +239,7 @@ export default async function AnimalDetailPage({ params }: Props) {
 
             <div>
               <h2>¿Podés ser vos su nuevo hogar?</h2>
+
               <p>
                 Cada adopción cambia una vida. Completá el formulario y empezá
                 el proceso para conocer a {animal.nombre}.

@@ -1,26 +1,29 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* Paleta de colores */
+/* #697355 - Verde salvia */
+/* #735236 - Marrón terroso */
+/* #D9A87E - Beige/dorado */
+/* #F2EEEB - Blanco roto */
+/* #D9A3A3 - Rosa apagado */
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: #f2eeeb;
+  --color-foreground: #735236;
+  --font-sans: var(--font-nunito);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  background: #f2eeeb;
+  color: #735236;
+  font-family: var(--font-nunito), sans-serif;
 }

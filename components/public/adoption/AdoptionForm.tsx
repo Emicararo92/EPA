@@ -10,6 +10,8 @@ import {
   FaPaw,
 } from "react-icons/fa";
 
+import { submitAdoptionRequest } from "../../../lib/actions/animals/submitAdoptionRequest";
+
 import styles from "./AdoptionForm.module.css";
 
 type Animal = {
@@ -29,31 +31,56 @@ type AdoptionFormProps = {
   initialAnimalId?: string;
 };
 
+type FormDataState = {
+  animal_id: string;
+  nombre: string;
+  apellido: string;
+  email: string;
+  telefono: string;
+  ciudad: string;
+  tipo_vivienda: string;
+  tiene_patio: string;
+  alquila: string;
+  tiene_hijos: string;
+  otras_mascotas: string;
+  detalle_mascotas: string;
+  experiencia: string;
+  motivo_adopcion: string;
+};
+
+const EMPTY_FORM: FormDataState = {
+  animal_id: "",
+  nombre: "",
+  apellido: "",
+  email: "",
+  telefono: "",
+  ciudad: "",
+  tipo_vivienda: "",
+  tiene_patio: "",
+  alquila: "",
+  tiene_hijos: "",
+  otras_mascotas: "",
+  detalle_mascotas: "",
+  experiencia: "",
+  motivo_adopcion: "",
+};
+
 export default function AdoptionForm({
   animals,
   initialAnimalId = "",
 }: AdoptionFormProps) {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-
   const selectedAnimalExists = animals.some(
     (animal) => animal.id === initialAnimalId,
   );
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormDataState>({
+    ...EMPTY_FORM,
     animal_id: selectedAnimalExists ? initialAnimalId : "",
-    nombre: "",
-    apellido: "",
-    email: "",
-    telefono: "",
-    ciudad: "",
-    direccion: "",
-    tipo_vivienda: "",
-    tiene_patio: "",
-    experiencia_animales: "",
-    otros_animales: "",
-    mensaje: "",
   });
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleChange = (
     event: React.ChangeEvent<
@@ -66,36 +93,35 @@ export default function AdoptionForm({
       ...previous,
       [name]: value,
     }));
+
+    if (errorMessage) {
+      setErrorMessage("");
+    }
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     setIsSubmitting(true);
+    setErrorMessage("");
 
     try {
-      console.log("SOLICITUD DE ADOPCIÓN:", formData);
+      const data = new FormData(event.currentTarget);
 
-      await new Promise((resolve) => setTimeout(resolve, 800));
+      const result = await submitAdoptionRequest(data);
+
+      if (!result.success) {
+        setErrorMessage(result.error || "No pudimos enviar la solicitud.");
+        return;
+      }
 
       setSubmitted(true);
 
-      setFormData({
-        animal_id: "",
-        nombre: "",
-        apellido: "",
-        email: "",
-        telefono: "",
-        ciudad: "",
-        direccion: "",
-        tipo_vivienda: "",
-        tiene_patio: "",
-        experiencia_animales: "",
-        otros_animales: "",
-        mensaje: "",
-      });
+      setFormData(EMPTY_FORM);
     } catch (error) {
       console.error("ADOPTION FORM ERROR:", error);
+
+      setErrorMessage("No pudimos enviar la solicitud. Intentá nuevamente.");
     } finally {
       setIsSubmitting(false);
     }
@@ -120,7 +146,10 @@ export default function AdoptionForm({
         <button
           type="button"
           className={styles.successButton}
-          onClick={() => setSubmitted(false)}
+          onClick={() => {
+            setSubmitted(false);
+            setErrorMessage("");
+          }}
         >
           Enviar otra solicitud
         </button>
@@ -131,7 +160,8 @@ export default function AdoptionForm({
   return (
     <section className={styles.section}>
       <div className={styles.container}>
-        {/* Header */}
+        {/* HEADER */}
+
         <div className={styles.header}>
           <div className={styles.headerIcon}>
             <FaHeart />
@@ -149,7 +179,8 @@ export default function AdoptionForm({
         </div>
 
         <form className={styles.form} onSubmit={handleSubmit}>
-          {/* Animal */}
+          {/* ANIMAL */}
+
           <div className={styles.formSection}>
             <div className={styles.sectionTitle}>
               <FaPaw />
@@ -189,7 +220,8 @@ export default function AdoptionForm({
             </div>
           </div>
 
-          {/* Datos personales */}
+          {/* DATOS PERSONALES */}
+
           <div className={styles.formSection}>
             <div className={styles.sectionTitle}>
               <FaUser />
@@ -212,6 +244,7 @@ export default function AdoptionForm({
                   value={formData.nombre}
                   onChange={handleChange}
                   placeholder="Tu nombre"
+                  autoComplete="given-name"
                   required
                 />
               </div>
@@ -226,6 +259,7 @@ export default function AdoptionForm({
                   value={formData.apellido}
                   onChange={handleChange}
                   placeholder="Tu apellido"
+                  autoComplete="family-name"
                   required
                 />
               </div>
@@ -243,6 +277,7 @@ export default function AdoptionForm({
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="tu@email.com"
+                  autoComplete="email"
                   required
                 />
               </div>
@@ -260,6 +295,7 @@ export default function AdoptionForm({
                   value={formData.telefono}
                   onChange={handleChange}
                   placeholder="11 1234 5678"
+                  autoComplete="tel"
                   required
                 />
               </div>
@@ -274,27 +310,15 @@ export default function AdoptionForm({
                   value={formData.ciudad}
                   onChange={handleChange}
                   placeholder="¿Dónde vivís?"
-                  required
-                />
-              </div>
-
-              <div className={styles.field}>
-                <label htmlFor="direccion">Dirección *</label>
-
-                <input
-                  id="direccion"
-                  name="direccion"
-                  type="text"
-                  value={formData.direccion}
-                  onChange={handleChange}
-                  placeholder="Calle y número"
+                  autoComplete="address-level2"
                   required
                 />
               </div>
             </div>
           </div>
 
-          {/* Vivienda */}
+          {/* HOGAR */}
+
           <div className={styles.formSection}>
             <div className={styles.sectionTitle}>
               <FaHome />
@@ -346,10 +370,94 @@ export default function AdoptionForm({
                   <option value="No">No</option>
                 </select>
               </div>
+
+              <div className={styles.field}>
+                <label htmlFor="alquila">¿Alquilás?</label>
+
+                <select
+                  id="alquila"
+                  name="alquila"
+                  value={formData.alquila}
+                  onChange={handleChange}
+                >
+                  <option value="">Seleccioná una opción</option>
+
+                  <option value="Si">Sí</option>
+
+                  <option value="No">No</option>
+                </select>
+              </div>
+
+              <div className={styles.field}>
+                <label htmlFor="tiene_hijos">¿Tenés hijos?</label>
+
+                <select
+                  id="tiene_hijos"
+                  name="tiene_hijos"
+                  value={formData.tiene_hijos}
+                  onChange={handleChange}
+                >
+                  <option value="">Seleccioná una opción</option>
+
+                  <option value="Si">Sí</option>
+
+                  <option value="No">No</option>
+                </select>
+              </div>
             </div>
           </div>
 
-          {/* Experiencia */}
+          {/* OTROS ANIMALES */}
+
+          <div className={styles.formSection}>
+            <div className={styles.sectionTitle}>
+              <FaPaw />
+
+              <div>
+                <h2>Otros animales</h2>
+
+                <p>
+                  Queremos saber si el nuevo integrante conviviría con otros
+                  animales.
+                </p>
+              </div>
+            </div>
+
+            <div className={styles.field}>
+              <label htmlFor="otras_mascotas">
+                ¿Tenés otros animales actualmente?
+              </label>
+
+              <select
+                id="otras_mascotas"
+                name="otras_mascotas"
+                value={formData.otras_mascotas}
+                onChange={handleChange}
+              >
+                <option value="">Seleccioná una opción</option>
+
+                <option value="Si">Sí</option>
+
+                <option value="No">No</option>
+              </select>
+            </div>
+
+            <div className={styles.field}>
+              <label htmlFor="detalle_mascotas">Contanos sobre ellos</label>
+
+              <textarea
+                id="detalle_mascotas"
+                name="detalle_mascotas"
+                value={formData.detalle_mascotas}
+                onChange={handleChange}
+                placeholder="Qué animales tenés, edades, cómo son, etc."
+                rows={4}
+              />
+            </div>
+          </div>
+
+          {/* EXPERIENCIA */}
+
           <div className={styles.formSection}>
             <div className={styles.sectionTitle}>
               <FaPaw />
@@ -357,43 +465,29 @@ export default function AdoptionForm({
               <div>
                 <h2>Sobre tu experiencia</h2>
 
-                <p>Queremos conocer un poco más sobre vos.</p>
+                <p>Queremos conocerte un poco más.</p>
               </div>
             </div>
 
             <div className={styles.field}>
-              <label htmlFor="experiencia_animales">
+              <label htmlFor="experiencia">
                 ¿Tuviste animales anteriormente? *
               </label>
 
               <textarea
-                id="experiencia_animales"
-                name="experiencia_animales"
-                value={formData.experiencia_animales}
+                id="experiencia"
+                name="experiencia"
+                value={formData.experiencia}
                 onChange={handleChange}
                 placeholder="Contanos brevemente sobre tu experiencia con animales..."
-                rows={4}
+                rows={5}
                 required
-              />
-            </div>
-
-            <div className={styles.field}>
-              <label htmlFor="otros_animales">
-                ¿Tenés otros animales actualmente?
-              </label>
-
-              <textarea
-                id="otros_animales"
-                name="otros_animales"
-                value={formData.otros_animales}
-                onChange={handleChange}
-                placeholder="Contanos si convivís con otros animales..."
-                rows={4}
               />
             </div>
           </div>
 
-          {/* Mensaje */}
+          {/* MOTIVO */}
+
           <div className={styles.formSection}>
             <div className={styles.sectionTitle}>
               <FaHeart />
@@ -406,20 +500,32 @@ export default function AdoptionForm({
             </div>
 
             <div className={styles.field}>
-              <label htmlFor="mensaje">¿Por qué querés adoptar?</label>
+              <label htmlFor="motivo_adopcion">
+                ¿Por qué querés adoptar? *
+              </label>
 
               <textarea
-                id="mensaje"
-                name="mensaje"
-                value={formData.mensaje}
+                id="motivo_adopcion"
+                name="motivo_adopcion"
+                value={formData.motivo_adopcion}
                 onChange={handleChange}
                 placeholder="Escribí acá todo lo que quieras contarnos..."
                 rows={6}
+                required
               />
             </div>
           </div>
 
-          {/* Botón */}
+          {/* ERROR */}
+
+          {errorMessage && (
+            <div role="alert" className={styles.errorMessage}>
+              {errorMessage}
+            </div>
+          )}
+
+          {/* SUBMIT */}
+
           <div className={styles.submitWrapper}>
             <button
               type="submit"

@@ -1,239 +1,751 @@
-/* --- NAVBAR --- */
 .navbar {
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
   z-index: 1000;
-  background: rgb(255, 255, 255);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(229, 221, 212, 0.3);
-  transition: all 0.3s ease;
-  height: 120px;
+
+  width: 100%;
+
+  color: #735236;
+
+  background: rgba(242, 238, 235, 0.42);
+
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+
+  transition:
+    background-color 500ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 500ms cubic-bezier(0.22, 1, 0.36, 1),
+    backdrop-filter 500ms ease;
 }
 
-/* Efecto de sombra al hacer scroll */
-.navbar.scrolled {
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+/* =========================================================
+   DOG RUNNER
+========================================================= */
+
+.runnerTrack {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  z-index: 1;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+
+  pointer-events: none;
 }
 
-.container {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0 40px;
-  height: 120px;
+.dogRunner {
+  position: absolute;
+  top: 50%;
+
   display: flex;
   align-items: center;
-  justify-content: space-between;
+
+  height: 40px;
+
+  transform: translateY(-50%);
+
+  color: #697355;
+
+  white-space: nowrap;
+
+  will-change: transform;
 }
 
-/* --- LOGO --- */
-.logo {
+.dog {
+  position: relative;
+  z-index: 2;
+
   display: flex;
   align-items: center;
-  gap: 10px;
-  text-decoration: none;
-  flex-shrink: 0;
-}
 
-.logo img {
-  width: 100px;
-  height: 100px;
-  object-fit: contain;
-}
-
-.logoText {
   font-size: 22px;
-  font-weight: 700;
-  color: #2d2a24;
-  letter-spacing: -0.5px;
+
+  filter: drop-shadow(0 2px 2px rgba(115, 82, 54, 0.08));
 }
 
-.logoText span {
-  color: #ef7270;
+.dogPaws {
+  position: absolute;
+
+  right: 18px;
+  top: 25px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 9px;
+
+  color: #d9a3a3;
+
+  font-size: 6px;
+
+  opacity: 0.65;
+
+  transform: rotate(-15deg);
 }
 
-/* --- NAVEGACIÓN DESKTOP --- */
+.dogPaws svg:nth-child(1) {
+  transform: translateY(2px) rotate(-12deg);
+}
+
+.dogPaws svg:nth-child(2) {
+  transform: translateY(-1px) rotate(-20deg);
+}
+
+.dogPaws svg:nth-child(3) {
+  transform: translateY(-4px) rotate(-30deg);
+}
+
+/* =========================================================
+   CONTAINER
+========================================================= */
+
+.inner {
+  position: relative;
+  z-index: 5;
+
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+
+  width: min(100% - 72px, 1500px);
+  height: 92px;
+
+  margin: 0 auto;
+
+  transition: height 500ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* =========================================================
+   BRAND
+========================================================= */
+
+.brand {
+  position: relative;
+
+  display: inline-flex;
+  align-items: center;
+
+  width: fit-content;
+
+  color: inherit;
+
+  text-decoration: none;
+}
+
+.brandMark {
+  position: relative;
+  z-index: 2;
+
+  font-size: 1.75rem;
+  font-weight: 900;
+
+  letter-spacing: -0.09em;
+  line-height: 1;
+
+  transition:
+    transform 300ms ease,
+    color 300ms ease;
+}
+
+.brand:hover .brandMark {
+  transform: translateX(-1px);
+}
+
+/* =========================================================
+   BRAND PAW TRAIL
+========================================================= */
+
+.pawTrail {
+  position: absolute;
+
+  top: 8px;
+  left: 58px;
+
+  width: 60px;
+  height: 38px;
+
+  pointer-events: none;
+}
+
+.pawTrail svg {
+  position: absolute;
+
+  color: #d9a3a3;
+
+  opacity: 0;
+
+  transform: scale(0.45);
+}
+
+.pawOne {
+  top: 20px;
+  left: 0;
+
+  font-size: 9px;
+
+  transform: rotate(-28deg) scale(0.45) !important;
+
+  transition:
+    opacity 180ms ease,
+    transform 400ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.pawTwo {
+  top: 8px;
+  left: 15px;
+
+  font-size: 11px;
+
+  transform: rotate(-18deg) scale(0.45) !important;
+
+  transition:
+    opacity 220ms ease 50ms,
+    transform 450ms cubic-bezier(0.22, 1, 0.36, 1) 50ms;
+}
+
+.pawThree {
+  top: 0;
+  left: 32px;
+
+  font-size: 13px;
+
+  transform: rotate(-8deg) scale(0.45) !important;
+
+  transition:
+    opacity 220ms ease 100ms,
+    transform 500ms cubic-bezier(0.22, 1, 0.36, 1) 100ms;
+}
+
+.brand:hover .pawOne,
+.brand:hover .pawTwo,
+.brand:hover .pawThree {
+  opacity: 1;
+}
+
+.brand:hover .pawOne {
+  transform: rotate(-28deg) scale(1) !important;
+}
+
+.brand:hover .pawTwo {
+  transform: rotate(-18deg) scale(1) !important;
+}
+
+.brand:hover .pawThree {
+  transform: rotate(-8deg) scale(1) !important;
+}
+
+/* =========================================================
+   DESKTOP NAV
+========================================================= */
+
 .desktopNav {
   display: flex;
   align-items: center;
-  gap: 8px;
+
+  gap: 34px;
 }
 
-.navLink {
-  padding: 8px 18px;
-  font-size: 14px;
-  font-weight: 500;
-  color: #4a4a46;
+.navItem {
+  position: relative;
+
+  display: flex;
+  align-items: baseline;
+
+  gap: 7px;
+
+  color: inherit;
+
   text-decoration: none;
-  border-radius: 8px;
-  transition: all 0.2s ease;
+}
+
+.navNumber {
+  color: #697355;
+
+  font-size: 0.55rem;
+  font-weight: 800;
+
+  letter-spacing: 0.05em;
+
+  transform: translateY(-2px);
+
+  opacity: 0.72;
+
+  transition:
+    color 250ms ease,
+    transform 300ms ease;
+}
+
+.navLabel {
+  position: relative;
+
+  font-size: 0.82rem;
+  font-weight: 700;
+
+  transition:
+    color 250ms ease,
+    transform 300ms ease;
+}
+
+.navLabel::after {
+  position: absolute;
+
+  right: 0;
+  bottom: -7px;
+  left: 0;
+
+  height: 1px;
+
+  content: "";
+
+  background: #697355;
+
+  transform: scaleX(0);
+  transform-origin: right;
+
+  transition: transform 350ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.navItem:hover .navLabel::after,
+.navItem.active .navLabel::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.navItem:hover .navNumber,
+.navItem.active .navNumber {
+  color: #d9a3a3;
+
+  transform: translate(-2px, -2px);
+}
+
+/* =========================================================
+   NAV PAW
+========================================================= */
+
+.navPaw {
+  position: absolute;
+
+  right: -17px;
+  bottom: -2px;
+
+  display: flex;
+
+  color: #d9a3a3;
+
+  font-size: 8px;
+
+  opacity: 0;
+
+  transform: translate(-5px, 5px) rotate(-20deg) scale(0.5);
+
+  pointer-events: none;
+
+  transition:
+    opacity 200ms ease,
+    transform 350ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.navItem:hover .navPaw,
+.navItem.active .navPaw {
+  opacity: 1;
+
+  transform: translate(0, 0) rotate(-20deg) scale(1);
+}
+
+/* =========================================================
+   DONATE
+========================================================= */
+
+.donate {
+  justify-self: end;
+
+  display: inline-flex;
+  align-items: center;
+
+  gap: 9px;
+
+  color: inherit;
+
+  text-decoration: none;
+
+  font-size: 0.78rem;
+  font-weight: 800;
+
+  letter-spacing: 0.03em;
+}
+
+.donateText {
   position: relative;
 }
 
-.navLink:hover {
-  color: #ef7270;
-  background: rgba(239, 114, 112, 0.06);
+.donateText::after {
+  position: absolute;
+
+  right: 0;
+  bottom: -6px;
+  left: 0;
+
+  height: 2px;
+
+  content: "";
+
+  background: #d9a3a3;
+
+  transform-origin: left;
+  transform: scaleX(1);
+
+  transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.navLink.active {
-  color: #ef7270;
-  font-weight: 600;
-}
-
-/* --- BOTÓN DONAR --- */
-.donateButton {
-  display: inline-flex;
+.donateArrow {
+  display: flex;
   align-items: center;
   justify-content: center;
-  padding: 10px 28px;
-  margin-left: 8px;
-  background: #ef7270;
-  color: #ffffff;
+
+  width: 27px;
+  height: 27px;
+
+  border-radius: 50%;
+
+  background: #d9a3a3;
+
+  color: #735236;
+
   font-size: 14px;
-  font-weight: 600;
-  text-decoration: none;
-  border-radius: 50px;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 16px rgba(239, 114, 112, 0.2);
-  border: none;
-  cursor: pointer;
+
+  transition:
+    transform 300ms cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 250ms ease;
 }
 
-.donateButton:hover {
-  background: #e05a58;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(239, 114, 112, 0.3);
+.donate:hover .donateText::after {
+  transform: scaleX(0.45);
 }
 
-.donateButton::before {
-  content: "♥";
-  margin-right: 8px;
-  font-size: 14px;
+.donate:hover .donateArrow {
+  background: #d9a87e;
+
+  transform: translate(2px, -2px);
 }
 
-/* --- MENÚ MÓVIL --- */
+/* =========================================================
+   SCROLL STATE
+========================================================= */
+
+.scrolled {
+  background: rgba(242, 238, 235, 0.94);
+
+  box-shadow:
+    0 1px 0 rgba(115, 82, 54, 0.08),
+    0 12px 30px rgba(115, 82, 54, 0.045);
+
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.scrolled .inner {
+  height: 70px;
+}
+
+.scrolled .brandMark {
+  font-size: 1.6rem;
+}
+
+.scrolled .pawTrail {
+  transform: scale(0.9);
+
+  transform-origin: left center;
+}
+
+/* =========================================================
+   MOBILE BUTTON
+========================================================= */
+
 .menuButton {
   display: none;
+
+  align-items: center;
+  justify-content: flex-end;
+
+  gap: 10px;
+
+  padding: 0;
+
+  border: 0;
+
+  background: transparent;
+  color: inherit;
+
+  cursor: pointer;
+
+  font-family: inherit;
+
+  font-size: 0.68rem;
+  font-weight: 800;
+
+  letter-spacing: 0.1em;
+
+  text-transform: uppercase;
+}
+
+.menuIcon {
+  display: flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
-  background: transparent;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background 0.2s ease;
-  color: #2d2a24;
-  font-size: 24px;
+
+  width: 37px;
+  height: 37px;
+
+  border: 1px solid rgba(115, 82, 54, 0.3);
+
+  border-radius: 50%;
+
+  font-size: 17px;
+
+  transition:
+    background-color 250ms ease,
+    color 250ms ease,
+    transform 250ms ease;
 }
 
-.menuButton:hover {
-  background: rgba(239, 114, 112, 0.08);
+.menuButton:hover .menuIcon {
+  background: #697355;
+
+  color: #f2eeeb;
+
+  transform: rotate(5deg);
 }
 
-/* --- NAVEGACIÓN MÓVIL --- */
+/* =========================================================
+   MOBILE NAV
+========================================================= */
+
 .mobileNav {
   position: absolute;
-  top: 120px;
+
+  top: 100%;
   left: 0;
-  right: 0;
-  background: rgba(255, 255, 255, 0.98);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid #f0ebe4;
-  padding: 16px 24px 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  animation: slideDown 0.3s ease forwards;
-  max-height: calc(100vh - 120px);
-  overflow-y: auto;
+
+  width: 100%;
+
+  background: #f2eeeb;
+
+  border-top: 1px solid rgba(115, 82, 54, 0.1);
+
+  color: #735236;
+
+  box-shadow: 0 20px 40px rgba(115, 82, 54, 0.08);
 }
 
-.mobileNav a {
-  padding: 12px 16px;
-  font-size: 15px;
-  font-weight: 500;
-  color: #4a4a46;
+.mobileInner {
+  width: min(100% - 40px, 600px);
+
+  margin: 0 auto;
+
+  padding: 34px 0 38px;
+}
+
+.mobileEyebrow {
+  margin-bottom: 25px;
+
+  color: #697355;
+
+  font-size: 0.58rem;
+  font-weight: 800;
+
+  letter-spacing: 0.14em;
+
+  text-transform: uppercase;
+}
+
+.mobileLinks {
+  border-top: 1px solid rgba(115, 82, 54, 0.12);
+}
+
+/* =========================================================
+   MOBILE LINKS
+========================================================= */
+
+.mobileLink {
+  position: relative;
+
+  display: grid;
+
+  grid-template-columns: 35px 1fr 25px;
+
+  align-items: center;
+
+  min-height: 72px;
+
+  border-bottom: 1px solid rgba(115, 82, 54, 0.12);
+
+  color: #735236;
+
   text-decoration: none;
-  border-radius: 10px;
-  transition: all 0.2s ease;
+
+  overflow: hidden;
 }
 
-.mobileNav a:hover {
-  background: rgba(239, 114, 112, 0.06);
-  color: #ef7270;
+.mobileNumber {
+  color: #697355;
+
+  font-size: 0.58rem;
+  font-weight: 800;
+
+  transition: color 250ms ease;
 }
 
-.mobileNav a.active {
-  background: rgba(239, 114, 112, 0.08);
-  color: #ef7270;
-  font-weight: 600;
+.mobileLink strong {
+  font-size: 1.35rem;
+  font-weight: 800;
+
+  letter-spacing: -0.03em;
+
+  transition:
+    color 250ms ease,
+    transform 300ms ease;
 }
+
+.mobilePaw {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #d9a3a3;
+
+  font-size: 13px;
+
+  opacity: 0;
+
+  transform: translateX(-10px) rotate(-20deg);
+
+  transition:
+    opacity 250ms ease,
+    transform 350ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.mobileLink:hover strong {
+  color: #697355;
+
+  transform: translateX(4px);
+}
+
+.mobileLink:hover .mobileNumber,
+.mobileActive .mobileNumber {
+  color: #d9a3a3;
+}
+
+.mobileLink:hover .mobilePaw,
+.mobileActive .mobilePaw {
+  opacity: 1;
+
+  transform: translateX(0) rotate(-20deg);
+}
+
+.mobileActive strong {
+  color: #697355;
+}
+
+/* =========================================================
+   MOBILE DONATE
+========================================================= */
 
 .mobileDonate {
   display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  margin-top: 28px;
+
+  padding: 0 0 12px;
+
+  border-bottom: 2px solid #d9a3a3;
+
+  color: #735236;
+
+  text-decoration: none;
+
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.mobileDonateIcon {
+  display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  margin-top: 8px;
-  padding: 14px !important;
-  background: #ef7270 !important;
-  color: #ffffff !important;
-  font-weight: 600 !important;
-  border-radius: 50px !important;
-  box-shadow: 0 4px 16px rgba(239, 114, 112, 0.2);
+
+  width: 30px;
+  height: 30px;
+
+  border-radius: 50%;
+
+  background: #d9a3a3;
+
+  color: #735236;
+
+  font-size: 16px;
 }
 
-.mobileDonate:hover {
-  background: #e05a58 !important;
-  transform: translateY(-1px);
-  box-shadow: 0 8px 24px rgba(239, 114, 112, 0.3);
+/* =========================================================
+   ACCESSIBILITY
+========================================================= */
+
+.brand:focus-visible,
+.navItem:focus-visible,
+.donate:focus-visible,
+.menuButton:focus-visible,
+.mobileLink:focus-visible,
+.mobileDonate:focus-visible {
+  outline: 3px solid #d9a87e;
+
+  outline-offset: 5px;
 }
 
-.mobileDonate::before {
-  content: "♥";
-  margin-right: 8px;
-  font-size: 14px;
-}
+/* =========================================================
+   TABLET
+========================================================= */
 
-/* --- ANIMACIONES --- */
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* --- RESPONSIVE --- */
-@media (max-width: 1024px) {
-  .container {
-    padding: 0 24px;
+@media (max-width: 900px) {
+  .inner {
+    width: min(100% - 40px, 760px);
   }
 
   .desktopNav {
-    gap: 4px;
+    gap: 22px;
   }
 
-  .navLink {
-    padding: 8px 14px;
-    font-size: 13px;
+  .navLabel {
+    font-size: 0.76rem;
   }
 
-  .donateButton {
-    padding: 8px 20px;
-    font-size: 13px;
+  .pawTrail {
+    left: 54px;
   }
 }
 
-@media (max-width: 768px) {
-  .desktopNav {
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 720px) {
+  .inner {
+    display: flex;
+
+    justify-content: space-between;
+
+    width: calc(100% - 32px);
+
+    height: 78px;
+  }
+
+  .desktopNav,
+  .donate {
     display: none;
   }
 
@@ -241,79 +753,88 @@
     display: flex;
   }
 
-  .navbar {
-    height: 100px;
+  .scrolled .inner {
+    height: 68px;
   }
 
-  .container {
-    height: 100px;
-    padding: 0 16px;
+  .scrolled {
+    background: rgba(242, 238, 235, 0.96);
   }
 
-  .logo img {
-    width: 80px;
-    height: 80px;
+  .brandMark {
+    font-size: 1.6rem;
   }
 
-  .logoText {
-    font-size: 18px;
-  }
-
-  .mobileNav {
-    top: 100px;
-    max-height: calc(100vh - 100px);
-    padding: 12px 16px 20px;
-  }
-
-  .mobileNav a {
-    padding: 10px 14px;
-    font-size: 14px;
-  }
-
-  .mobileDonate {
-    padding: 12px !important;
-    font-size: 14px;
+  /* El perro no aparece en mobile */
+  .runnerTrack {
+    display: none;
   }
 }
 
-@media (max-width: 480px) {
-  .navbar {
-    height: 80px;
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 420px) {
+  .inner {
+    width: calc(100% - 24px);
   }
 
-  .container {
-    height: 80px;
-    padding: 0 12px;
+  .brandMark {
+    font-size: 1.5rem;
   }
 
-  .logo img {
-    width: 64px;
-    height: 64px;
+  .pawTrail {
+    left: 50px;
+
+    transform: scale(0.9);
+
+    transform-origin: left center;
   }
 
-  .logoText {
-    font-size: 16px;
+  .menuButton > span:first-child {
+    display: none;
   }
 
-  .menuButton {
-    width: 40px;
-    height: 40px;
-    font-size: 20px;
+  .menuIcon {
+    width: 38px;
+    height: 38px;
   }
 
-  .mobileNav {
-    top: 80px;
-    max-height: calc(100vh - 80px);
-    padding: 10px 12px 16px;
+  .mobileInner {
+    width: calc(100% - 32px);
   }
 
-  .mobileNav a {
-    padding: 8px 12px;
-    font-size: 13px;
+  .mobileLink strong {
+    font-size: 1.2rem;
+  }
+}
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .navbar,
+  .inner,
+  .brandMark,
+  .pawTrail svg,
+  .navNumber,
+  .navLabel,
+  .navLabel::after,
+  .navPaw,
+  .donateText::after,
+  .donateArrow,
+  .menuIcon,
+  .mobileLink strong,
+  .mobilePaw,
+  .dogRunner,
+  .dog {
+    animation: none;
+    transition: none;
   }
 
-  .mobileDonate {
-    padding: 10px !important;
-    font-size: 13px;
+  .dogRunner {
+    display: none;
   }
 }
